@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnLogin;
     private TextView tvRegister;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = "closes";
 
     @Override
@@ -32,6 +33,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initListeners();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
     private void initUI() {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -39,6 +47,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tvRegister = findViewById(R.id.tvRegister);
 
         mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = firebaseAuth -> {
+            if (firebaseAuth.getCurrentUser() != null) {
+                startActivity(new Intent(this, CheckDonatesActivity.class));
+                finish();
+            }
+        };
     }
 
     private void initListeners() {
@@ -66,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             Log.i(TAG, "signInWithEmail:success");
 
-                            startActivity(new Intent(this, MainActivity.class));
+                            startActivity(new Intent(this, CheckDonatesActivity.class));
                             finish();
                         } else {
                             Log.e(TAG, "singInWithEmail:Fail");

@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.Closes">
+        <activity android:name=".PagesPackage.AddDonationActivity"></activity>
+        <activity android:name=".PagesPackage.PickDonationActivity" />
         <activity android:name=".PagesPackage.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PagesPackage.RegisterActivity" />
-        <activity android:name=".PagesPackage.MainActivity" />
+        <activity android:name=".PagesPackage.CheckDonatesActivity" />
     </application>
 
 </manifest>
