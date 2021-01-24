@@ -1,9 +1,16 @@
 package com.example.closes.PagesPackage;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -22,6 +29,10 @@ public class PickDonationActivity extends AppCompatActivity {
     private final ArrayList<DonatesModel> donatesModelArrayList = new ArrayList<>();
     private AdapterDonates adapterDonates;
     private FirebaseFirestore firebaseFirestore;
+    private Location location;
+    private LocationManager locationManager;
+    private Criteria criteria;
+    private String provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +40,7 @@ public class PickDonationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pick_donation);
 
         initUI();
+        initLocation();
         readDonatesFirestore();
     }
 
@@ -40,6 +52,12 @@ public class PickDonationActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
+    private void initLocation() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, true);
+    }
+
     private void readDonatesFirestore() {
         firebaseFirestore.collection("donations")
                 .get()
@@ -49,8 +67,34 @@ public class PickDonationActivity extends AppCompatActivity {
 
                         for (DocumentSnapshot doc : task.getResult()) {
                             DonatesModel note = doc.toObject(DonatesModel.class);
-                            note.setId(doc.getId());
-                            donatesModelArrayList.add(note);
+                            double lat1 = note.getLat();
+                            double lng1 = note.getLng();
+                            if (ActivityCompat.checkSelfPermission(PickDonationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.checkSelfPermission(PickDonationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
+                            }// TODO: Consider calling
+//    ActivityCompat#requestPermissions
+// here to request the missing permissions, and then overriding
+//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                          int[] grantResults)
+// to handle the case where the user grants the permission. See the documentation
+// for ActivityCompat#requestPermissions for more details.
+                            if (provider != null) {
+                                location = locationManager.getLastKnownLocation(provider);
+                                if (location != null) {
+                                    double distanceMe;
+                                    Location locationA = new Location("Point A");
+                                    locationA.setLatitude(lat1);
+                                    locationA.setLongitude(lng1);
+                                    Location locationB = new Location("Point B");
+                                    locationB.setLatitude(location.getLatitude());
+                                    locationB.setLongitude(location.getLongitude());
+                                    distanceMe = locationA.distanceTo(locationB);
+                                    if (distanceMe < 5000) {
+                                        note.setId(doc.getId());
+                                        donatesModelArrayList.add(note);
+                                    }
+                                }
+                            }
                         }
 
                         adapterDonates = new AdapterDonates(donatesModelArrayList, this);

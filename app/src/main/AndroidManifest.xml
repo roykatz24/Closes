@@ -3,6 +3,8 @@
     package="com.example.closes">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.Closes">
-        <activity android:name=".PagesPackage.AddDonationActivity"></activity>
-        <activity android:name=".PagesPackage.PickDonationActivity" />
         <activity android:name=".PagesPackage.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".PagesPackage.RegisterActivity" />
         <activity android:name=".PagesPackage.CheckDonatesActivity" />
+        <activity android:name=".PagesPackage.AddDonationActivity" />
+        <activity android:name=".PagesPackage.PickDonationActivity" />
     </application>
 
 </manifest>
