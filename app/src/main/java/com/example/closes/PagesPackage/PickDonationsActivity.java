@@ -12,10 +12,9 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.closes.AdaptersPackage.AdapterDonates;
+import com.example.closes.AdaptersPackage.AdapterDonations;
 import com.example.closes.ModelsPackage.DonatesModel;
 import com.example.closes.R;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,11 +22,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class PickDonationActivity extends AppCompatActivity {
+public class PickDonationsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewDonates;
     private final ArrayList<DonatesModel> donatesModelArrayList = new ArrayList<>();
-    private AdapterDonates adapterDonates;
+    private AdapterDonations adapterDonations;
     private FirebaseFirestore firebaseFirestore;
     private Location location;
     private LocationManager locationManager;
@@ -37,7 +36,7 @@ public class PickDonationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick_donation);
+        setContentView(R.layout.activity_pick_donations);
 
         initUI();
         initLocation();
@@ -97,10 +96,10 @@ public class PickDonationActivity extends AppCompatActivity {
                             }
                         }
 
-                        adapterDonates = new AdapterDonates(donatesModelArrayList, this);
-                        recyclerViewDonates.setAdapter(adapterDonates);
+                        adapterDonations = new AdapterDonations(donatesModelArrayList, this);
+                        recyclerViewDonates.setAdapter(adapterDonations);
                     } else {
-                        Toast.makeText(PickDonationActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PickDonationsActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

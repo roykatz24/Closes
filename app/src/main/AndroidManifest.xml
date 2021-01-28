@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -21,9 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".PagesPackage.RegisterActivity" />
-        <activity android:name=".PagesPackage.CheckDonatesActivity" />
-        <activity android:name=".PagesPackage.AddDonationActivity" />
-        <activity android:name=".PagesPackage.PickDonationActivity" />
+        <activity android:name=".PagesPackage.CheckDonationsActivity" />
+        <activity android:name=".PagesPackage.AddDonationsActivity" />
+        <activity android:name=".PagesPackage.PickDonationsActivity" />
     </application>
 
 </manifest>

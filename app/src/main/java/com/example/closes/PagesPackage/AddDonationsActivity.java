@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddDonationActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddDonationsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etName, etDescription, etPhone, etSize;
     private Button btnAddDonate;
@@ -36,7 +36,7 @@ public class AddDonationActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_donation);
+        setContentView(R.layout.activity_add_donations);
 
         initUI();
         initListeners();
@@ -95,7 +95,7 @@ public class AddDonationActivity extends AppCompatActivity implements View.OnCli
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(this, "You add donation successfully", Toast.LENGTH_LONG).show();
 
-                                Intent intent = new Intent(this, CheckDonatesActivity.class);
+                                Intent intent = new Intent(this, CheckDonationsActivity.class);
                                 startActivity(intent);
                                 finish();
                             })

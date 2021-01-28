@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".PagesPackage.AddDonationActivity">
+    tools:context=".PagesPackage.AddDonationsActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:text="Add donate"
+        android:text="Add donations"
         android:textSize="50sp" />
 
     <EditText

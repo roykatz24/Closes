@@ -20,7 +20,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 
-public class CheckDonatesActivity extends AppCompatActivity implements View.OnClickListener {
+public class CheckDonationsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnCheckDonates;
     private static final String TAG = "closes";
@@ -32,7 +32,7 @@ public class CheckDonatesActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_donates);
+        setContentView(R.layout.activity_check_donations);
 
         initUI();
         initListeners();
@@ -97,8 +97,8 @@ public class CheckDonatesActivity extends AppCompatActivity implements View.OnCl
 
     // Start the updates of the location
     private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(CheckDonatesActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(CheckDonatesActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(CheckDonationsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(CheckDonationsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -137,7 +137,7 @@ public class CheckDonatesActivity extends AppCompatActivity implements View.OnCl
 
     // Show the dialog of the request permission
     private void startLocationPermissionRequest() {
-        ActivityCompat.requestPermissions(CheckDonatesActivity.this,
+        ActivityCompat.requestPermissions(CheckDonationsActivity.this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 1);
     }
@@ -174,9 +174,9 @@ public class CheckDonatesActivity extends AppCompatActivity implements View.OnCl
         builder.setTitle("Please choose your purpose");
         builder.setItems(purposes, (dialog, which) -> {
             if ("I want to pick a donation".equals(purposes[which])) {
-                startActivity(new Intent(this, PickDonationActivity.class));
+                startActivity(new Intent(this, PickDonationsActivity.class));
             } else if ("I want to add clothes".equals(purposes[which])) {
-                startActivity(new Intent(this, AddDonationActivity.class));
+                startActivity(new Intent(this, AddDonationsActivity.class));
             }
         });
         builder.show();

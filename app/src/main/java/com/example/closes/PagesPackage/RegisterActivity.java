@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if (task.isSuccessful()) {
                             Log.i(TAG, "createUserWithEmail:success");
 
-                            startActivity(new Intent(this, CheckDonatesActivity.class));
+                            startActivity(new Intent(this, CheckDonationsActivity.class));
                             finish();
                         } else {
                             Log.e(TAG, "createUserWithEmail:failure", task.getException());

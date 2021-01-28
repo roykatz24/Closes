@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mAuthListener = firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() != null) {
-                startActivity(new Intent(this, CheckDonatesActivity.class));
+                startActivity(new Intent(this, CheckDonationsActivity.class));
                 finish();
             }
         };
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             Log.i(TAG, "signInWithEmail:success");
 
-                            startActivity(new Intent(this, CheckDonatesActivity.class));
+                            startActivity(new Intent(this, CheckDonationsActivity.class));
                             finish();
                         } else {
                             Log.e(TAG, "singInWithEmail:Fail");
