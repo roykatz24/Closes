@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.closes.R;
 
-public class ViewHolderAdapaterDonates extends RecyclerView.ViewHolder {
+public class ViewHolderAdapterDonates extends RecyclerView.ViewHolder {
 
     public TextView tvName;
 
-    public ViewHolderAdapaterDonates(View itemView) {
+    public ViewHolderAdapterDonates(View itemView) {
         super(itemView);
 
         tvName = itemView.findViewById(R.id.tvName);

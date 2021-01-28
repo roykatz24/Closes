@@ -13,7 +13,7 @@ import com.example.closes.R;
 
 import java.util.ArrayList;
 
-public class AdapterDonates extends RecyclerView.Adapter<ViewHolderAdapaterDonates> {
+public class AdapterDonates extends RecyclerView.Adapter<ViewHolderAdapterDonates> {
 
     private final ArrayList<DonatesModel> donatesModelArrayList;
     private final LayoutInflater mInflater;
@@ -25,13 +25,13 @@ public class AdapterDonates extends RecyclerView.Adapter<ViewHolderAdapaterDonat
 
     @NonNull
     @Override
-    public ViewHolderAdapaterDonates onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderAdapterDonates onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.adapter_donates, parent, false);
-        return new ViewHolderAdapaterDonates(view);
+        return new ViewHolderAdapterDonates(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolderAdapaterDonates holder, int position) {
+    public void onBindViewHolder(ViewHolderAdapterDonates holder, int position) {
         DonatesModel listData = donatesModelArrayList.get(position);
         holder.tvName.setText(listData.getName());
     }

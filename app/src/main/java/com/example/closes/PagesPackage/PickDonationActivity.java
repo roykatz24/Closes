@@ -66,11 +66,11 @@ public class PickDonationActivity extends AppCompatActivity {
                         donatesModelArrayList.clear();
 
                         for (DocumentSnapshot doc : task.getResult()) {
-                            DonatesModel note = doc.toObject(DonatesModel.class);
-                            double lat1 = note.getLat();
-                            double lng1 = note.getLng();
-                            if (ActivityCompat.checkSelfPermission(PickDonationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.checkSelfPermission(PickDonationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
+                            DonatesModel donatesModel = doc.toObject(DonatesModel.class);
+                            double lat1 = donatesModel.getLat();
+                            double lng1 = donatesModel.getLng();
+                            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
                             }// TODO: Consider calling
 //    ActivityCompat#requestPermissions
 // here to request the missing permissions, and then overriding
@@ -90,8 +90,8 @@ public class PickDonationActivity extends AppCompatActivity {
                                     locationB.setLongitude(location.getLongitude());
                                     distanceMe = locationA.distanceTo(locationB);
                                     if (distanceMe < 5000) {
-                                        note.setId(doc.getId());
-                                        donatesModelArrayList.add(note);
+                                        donatesModel.setId(doc.getId());
+                                        donatesModelArrayList.add(donatesModel);
                                     }
                                 }
                             }
