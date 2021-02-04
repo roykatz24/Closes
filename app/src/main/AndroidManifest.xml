@@ -25,6 +25,15 @@
         <activity android:name=".PagesPackage.CheckDonationsActivity" />
         <activity android:name=".PagesPackage.AddDonationsActivity" />
         <activity android:name=".PagesPackage.PickDonationsActivity" />
+        <activity android:name=".PagesPackage.MapActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key_map" />
     </application>
 
 </manifest>

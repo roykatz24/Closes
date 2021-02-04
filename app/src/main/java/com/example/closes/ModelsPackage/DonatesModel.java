@@ -1,6 +1,8 @@
 package com.example.closes.ModelsPackage;
 
-public class DonatesModel {
+import java.io.Serializable;
+
+public class DonatesModel implements Serializable {
 
     private String id;
     private String name;

@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.closes.ModelsPackage.DonatesModel;
+import com.example.closes.PagesPackage.MapActivity;
 import com.example.closes.R;
 
 import java.util.ArrayList;
@@ -102,6 +103,12 @@ public class AdapterDonations extends RecyclerView.Adapter<ViewHolderAdapterDona
             } else {
                 ActivityCompat.requestPermissions((Activity) mInflater.getContext(), new String[]{Manifest.permission.CALL_PHONE}, 0);
             }
+        });
+
+        holder.btnPlace.setOnClickListener(v -> {
+            Intent intent = new Intent(mInflater.getContext(), MapActivity.class);
+            intent.putExtra("dataMap", listData);
+            mInflater.getContext().startActivity(intent);
         });
     }
 
