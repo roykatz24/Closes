@@ -2,6 +2,7 @@ package com.example.closes.PagesPackage;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.closes.BroadcastReceiverPackage.AirplaneModeReceiver;
 import com.example.closes.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -37,6 +39,7 @@ public class CheckDonationsActivity extends AppCompatActivity implements View.On
         initUI();
         initListeners();
         initLocation();
+        startBroadcastReceiver();
     }
 
     @Override
@@ -72,6 +75,12 @@ public class CheckDonationsActivity extends AppCompatActivity implements View.On
 
     private void initListeners() {
         btnCheckDonates.setOnClickListener(this);
+    }
+
+    private void startBroadcastReceiver() {
+        AirplaneModeReceiver receiver = new AirplaneModeReceiver();
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        registerReceiver(receiver, intentFilter);
     }
 
     // Init the elements of location

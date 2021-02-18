@@ -34,6 +34,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api_key_map" />
+
+        <receiver android:name=".BroadcastReceiverPackage.AirplaneModeReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
