@@ -9,6 +9,7 @@ public class DonatesModel implements Serializable {
     private String description;
     private String size;
     private String phone;
+    private String image;
     private double lat;
     private double lng;
 
@@ -50,6 +51,14 @@ public class DonatesModel implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public double getLat() {

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.closes.ModelsPackage.DonatesModel;
@@ -24,7 +25,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private GoogleMap mGoogleMap;
     private MapView mapView;
@@ -37,6 +38,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
 
         initUI();
+        initListeners();
     }
 
     private void initUI() {
@@ -54,32 +56,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         donatesModel = (DonatesModel) getIntent().getExtras().getSerializable("dataMap");
     }
 
-    private void getMoovit(final double des_lat, final double des_lng, final String name, final double orig_lat, final double orig_lng) {
-        moovit.setOnClickListener(v -> {
-            try {
-                PackageManager pm = Objects.requireNonNull(getActivity()).getPackageManager();
-                pm.getPackageInfo("com.tranzmate", PackageManager.GET_ACTIVITIES);
-                String uri = "moovit://directions?dest_lat=" + des_lat + "&dest_lon=" + des_lng + "&dest_name=" + name + "&orig_lat=" + orig_lat + "&orig_lon=" + orig_lng + "&orig_name=Your current location&auto_run=true&partner_id=Lovely Favorite Places";
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(uri));
-                startActivity(intent);
-            } catch (PackageManager.NameNotFoundException e) {
-                String url = "http://app.appsflyer.com/com.tranzmate?pid=DL&c=Lovely Favorite Places";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
+    private void initListeners() {
+        moovit.setOnClickListener(this);
+        gett.setOnClickListener(this);
+        waze.setOnClickListener(this);
     }
 
-    private void getGetTaxi(final double des_lat, final double des_lng) {
-        gett.setOnClickListener(v -> {
-            if (isPackageInstalled(Objects.requireNonNull(getContext()))) {
-                openLinkGetTaxi(Objects.requireNonNull(getActivity()), "gett://order?pickup=my_location&dropoff_latitude=" + des_lat + "&dropoff_longitude=" + des_lng + "&product_id=0c1202f8-6c43-4330-9d8a-3b4fa66505fd");
-            } else {
-                openLinkGetTaxi(Objects.requireNonNull(getActivity()), "https://play.google.com/store/apps/details?id=" + "com.gettaxi.android");
-            }
-        });
+    private void getMoovit(double des_lat, double des_lng, String name, double orig_lat, double orig_lng) {
+        try {
+            PackageManager pm = getPackageManager();
+            pm.getPackageInfo("com.tranzmate", PackageManager.GET_ACTIVITIES);
+            String uri = "moovit://directions?dest_lat=" + des_lat + "&dest_lon=" + des_lng + "&dest_name=" + name + "&orig_lat=" + orig_lat + "&orig_lon=" + orig_lng + "&orig_name=Your current location&auto_run=true&partner_id=ClosesApp";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(uri));
+            startActivity(intent);
+        } catch (PackageManager.NameNotFoundException e) {
+            String url = "http://app.appsflyer.com/com.tranzmate?pid=DL&c=ClosesApp";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
+    }
+
+    private void getGetTaxi(double des_lat, double des_lng) {
+        if (isPackageInstalled(this)) {
+            openLinkGetTaxi(this, "gett://order?pickup=my_location&dropoff_latitude=" + des_lat + "&dropoff_longitude=" + des_lng + "&product_id=0c1202f8-6c43-4330-9d8a-3b4fa66505fd");
+        } else {
+            openLinkGetTaxi(this, "https://play.google.com/store/apps/details?id=" + "com.gettaxi.android");
+        }
     }
 
     private static void openLinkGetTaxi(Activity activity, String link) {
@@ -100,17 +104,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return false;
     }
 
-    private void getWaze(final double des_lat, final double des_lng) {
-        waze.setOnClickListener(v -> {
-            try {
-                String url = "https://www.waze.com/ul?ll=" + des_lat + "%2C" + des_lng + "&navigate=yes&zoom=17";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-            } catch (ActivityNotFoundException ex) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.waze"));
-                startActivity(intent);
-            }
-        });
+    private void getWaze(double des_lat, double des_lng) {
+        try {
+            String url = "https://www.waze.com/ul?ll=" + des_lat + "%2C" + des_lng + "&navigate=yes&zoom=17";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.waze"));
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -136,6 +138,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     .title(donatesModel.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
         } catch (Exception e) {
 
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imageViewMoovit:
+                getMoovit(donatesModel.getLat(), donatesModel.getLng(), donatesModel.getName(), 31.771959, 35.217018);
+                break;
+            case R.id.imageViewGett:
+                getGetTaxi(donatesModel.getLat(), donatesModel.getLng());
+                break;
+            case R.id.imageViewWaze:
+                getWaze(donatesModel.getLat(), donatesModel.getLng());
+                break;
         }
     }
 

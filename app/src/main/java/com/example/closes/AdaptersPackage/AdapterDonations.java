@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.closes.ModelsPackage.DonatesModel;
 import com.example.closes.PagesPackage.MapActivity;
 import com.example.closes.R;
@@ -92,6 +93,8 @@ public class AdapterDonations extends RecyclerView.Adapter<ViewHolderAdapterDona
                 }
 
                 holder.tvDistance.setText(distanceMeShow);
+
+                Glide.with(mInflater.getContext()).load(listData.getImage()).into(holder.ivDonation);
             }
         }
 
